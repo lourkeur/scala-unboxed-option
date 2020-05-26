@@ -19,4 +19,5 @@ def [A, B](oa: UOption[A]).fold(ifEmpty: => B)(fa: A => B): B = oa match
   case WrappedUNone(l) => fa(WrappedUNone(l-1).asInstanceOf[A])
   case a => fa(a.asInstanceOf[A])
 
-given [A <: Serializable] as (UOption[A] <:< Serializable) = summon
+val evSerializable: UOption[Serializable] <:< Serializable =
+  summon[UOption[Serializable] <:< Serializable]
